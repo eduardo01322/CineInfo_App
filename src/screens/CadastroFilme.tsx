@@ -38,7 +38,6 @@ const CadastroFilme: React.FC = () => {
     }
 return (
     <View style={styles.container}>
-            <StatusBar backgroundColor="red" barStyle="light-content"/>
             <View style={styles.header}>
                 <Text style={styles.headerText}>CineInfo</Text>
             </View>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         paddingVertical: 10,
         alignItems: 'center'
     },
@@ -107,29 +106,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 10
     },
-    imageButton: {
-        backgroundColor: 'red',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginBottom: 10
-    },
-    imageButtonText: {
-        color: 'white',
-        fontWeight: 'bold'
-    },
-    imagemSelecionada: {
-        width: 200,
-        height: 200,
-        resizeMode: 'cover',
-        borderRadius: 5,
-        marginBottom: 10,
-    },
-    alinhamentoImagemSelecionada: {
-        alignItems: 'center'
-    },
     button: {
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center'
