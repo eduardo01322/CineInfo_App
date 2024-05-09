@@ -53,8 +53,7 @@ return (
                 value={genero} onChangeText={setGenero}/>
 
                 <TextInput style={styles.input} placeholder="dt_lancamento"
-                value={dt_lancamento} onChangeText={setDt_lancamento} 
-                keyboardType="numeric" keyboardAppearance="dark"/>
+                value={dt_lancamento} onChangeText={setDt_lancamento}/>
 
                 <TextInput style={styles.input} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
