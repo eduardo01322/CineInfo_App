@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const CadastroFilme: React.FC = () => {
     const [filme, setFilme] = useState<[]>([]);
@@ -38,10 +38,15 @@ const CadastroFilme: React.FC = () => {
     }
 return (
     <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>CineInfo</Text>
-            </View>
-            <View style={styles.form}>
+            <TouchableOpacity>
+            <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
+            </TouchableOpacity>
+
+            <ScrollView style={styles.Login}>
+
+                <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
+
+             
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
 
@@ -51,8 +56,11 @@ return (
                 <TextInput style={styles.input} placeholder="Genero"
                 value={genero} onChangeText={setGenero}/>
 
-                <TextInput style={styles.input} placeholder="dt_lancamento"
+                <TextInput style={styles.input} placeholder="data de lancamento"
                 value={dt_lancamento} onChangeText={setDt_lancamento}/>
+
+                <TextInput style={styles.input} placeholder="Duracao"
+                value={duracao} onChangeText={setDuracao}/>
 
                 <TextInput style={styles.input} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
@@ -60,62 +68,144 @@ return (
                 <TextInput style={styles.input} placeholder="Elenco"
                 value={elenco} onChangeText={setElenco} multiline/>
 
-                <TextInput style={styles.input} placeholder="Classificacao"
+                <TextInput style={styles.input} placeholder="Classificação"
                 value={classificacao} onChangeText={setClassificacao}/>
 
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
 
-                <TextInput style={styles.input} placeholder="Duracao"
-                value={duracao} onChangeText={setDuracao}/>
         
                 <TouchableOpacity style={styles.button} onPress={cadastrarFilme}>
-                    <Text style={styles.buttonText}>Cadastrar produção</Text>
+                    <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
-            </View>
 
+
+            </ScrollView>
         </View>
 
 );
 }
 
 const styles = StyleSheet.create({
+    Login: {
+        marginTop: 30
+    },
+    Text1: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 15,
+        marginBottom:15
+    },
+    Text: {
+
+        marginTop: -11
+    },
     container: {
-        flex: 1
-    },
-    header: {
-        backgroundColor: 'black',
-        paddingVertical: 10,
-        alignItems: 'center'
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    form: {
-        padding: 10,
-        backgroundColor: '#f0f0f0',
-        marginBottom: 10
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#FFF'
     },
     input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
+        marginBottom: 20,
         paddingHorizontal: 10,
-        borderRadius: 10
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: 360,
     },
     button: {
-        backgroundColor: 'black',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center'
+        backgroundColor: '#D94F04',
+        height: 60,
+        borderRadius: 20,
+        width: 350,
+        fontSize: 50,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom:15,
+        marginTop:9
     },
     buttonText: {
-        color: 'white',
+        fontSize: 25,
+        width: 110,
+        color: '#FFF',
+        marginLeft: 118,
+        marginTop: 13
+    },
+    forgotPassword: {
+        color: '#D94F04',
+        textAlign: 'center',
+        fontSize: 10,
+
+    },
+    Icons: {
+        marginTop: 20
+    },
+    Text2: {
+        color: 'black',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: 20,
         fontWeight: 'bold'
-    }
+    },
+    Logo: {
+        height: 150,
+        width: 300,
+        marginTop: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    inputDate:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '48%',
+       
+    },
+    inputDuracao:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '48%',
+        marginLeft:'52%',
+        marginVertical: -70
+    },
+    inputClassificacao:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '48%',
+        marginLeft:'52%',
+        marginVertical: -70
+    },
+    inputGenero:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '48%',
+    },
+    inputSinopse:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: 360,
+    height:100,
+}
 });
 
 export default CadastroFilme;
