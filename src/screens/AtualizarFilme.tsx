@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-const CadastroFilme: React.FC = () => {
+const AtualizarFilme: React.FC = () => {
     const [filme, setFilme] = useState<[]>([]);
+    const [id, setId] = useState<string>('');
     const [titulo, setTitulo] = useState<string>('');
     const [diretor, setDiretor] = useState<string>('');
     const [genero, setGenero] = useState<string>('');
@@ -17,6 +18,7 @@ const CadastroFilme: React.FC = () => {
     const cadastrarFilme = async () => {
         try{
         const formData = new FormData();
+        formData.append('id', id);
         formData.append('titulo', titulo);
         formData.append('diretor', diretor);
         formData.append('genero', genero);
@@ -27,7 +29,7 @@ const CadastroFilme: React.FC = () => {
         formData.append('plataformas', plataformas);
         formData.append('duracao', duracao);
 
-        const response = await axios.post('http://10.137.11.213:8000/api/filmes/cadastro', formData, {
+        const response = await axios.put('http://10.137.11.213:8000/api/filmes/update', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }            
@@ -36,12 +38,38 @@ const CadastroFilme: React.FC = () => {
         console.log(error);
     }
     }
+
+    useEffect(() => {
+        async function fetchData() {
+          try{
+              const response = await axios.get("http://127.0.0.1:8000/api/find/clientes/"+id);
+              setId(response.data.data.id);
+              setTitulo(response.data.data.titulo);
+              setDiretor(response.data.data.diretor);
+              setGenero(response.data.data.genero);
+              setDt_lancamento(response.data.data.dt_lancamento);
+              setSinopse(response.data.data.sinopse);
+              setElenco(response.data.data.elenco);
+              setClassificacao(response.data.data.classificacao);
+              setPlataformas(response.data.data.plataformas);
+              setDuracao(response.data.data.duracao);
+          } catch(error){
+              console.log("erro ao buscar dados da api");
+          }
+        }
+        fetchData();
+      }, []);
+
+
 return (
     <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>CineInfo</Text>
             </View>
             <View style={styles.form}>
+                <TextInput style={styles.input} placeholder="id"
+                value={id} onChangeText={setId} keyboardType="numeric"/>
+                
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
 
@@ -70,7 +98,7 @@ return (
                 value={duracao} onChangeText={setDuracao}/>
         
                 <TouchableOpacity style={styles.button} onPress={cadastrarFilme}>
-                    <Text style={styles.buttonText}>Cadastrar produção</Text>
+                    <Text style={styles.buttonText}>Atualizar produção</Text>
                 </TouchableOpacity>
             </View>
 
@@ -118,4 +146,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CadastroFilme;
+export default AtualizarFilme;
