@@ -13,8 +13,54 @@ const CadastroFilme: React.FC = () => {
     const [classificacao, setClassificacao] = useState<string>('');
     const [plataformas, setPlataformas] = useState<string>('');
     const [duracao, setDuracao] = useState<string>('');
+    const [errors, setErrors] = useState<any>({});
+    const [message, setMessage] = useState<string>('');
+
+    const validateForm = () => {
+        const newErrors: any = {};
+    
+        if (!titulo) {
+          newErrors.titulo = "O campo titulo é obrigatório";
+        }
+    
+        if (!diretor) {
+          newErrors.diretor = "O campo diretor é obrigatório";
+        }
+    
+        if (!genero) {
+          newErrors.genero = "O campo genero é obrigatório";
+        }
+    
+        if (!dt_lancamento) {
+          newErrors.dt_lancamento = "O campo dt_lancamento é obrigatório";
+        }
+    
+        if (!sinopse) {
+          newErrors.sinopse = "O campo sinopse é obrigatório";
+        }
+    
+        if (!elenco) {
+          newErrors.elenco = "O campo elenco é obrigatório";
+        }
+    
+        if (!classificacao) {
+          newErrors.classificacao = "O campo classificacao é obrigatório";
+        }
+        if (!plataformas) {
+            newErrors.plataformas = "O campo plataformas é obrigatório";
+          }
+          if (!duracao) {
+            newErrors.duracao = "O campo duracao é obrigatório";
+          }
+    
+        setErrors(newErrors);
+    
+        return !Object.keys(newErrors).length;
+      };
+
 
     const cadastrarFilme = async () => {
+        if (validateForm()) {
         try{
         const formData = new FormData();
         formData.append('titulo', titulo);
@@ -32,47 +78,88 @@ const CadastroFilme: React.FC = () => {
                 'Content-Type': 'multipart/form-data'
             }            
         });
-    } catch(error) {
-        console.log(error);
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        } else {
+          setMessage('Não cadastrado');
+          setTimeout(() => setMessage(''), 3000);
+        }
+      }
     }
+  };
+  const renderError = (name: string) => {
+    if (errors[name]) {
+      return <Text style={styles.errorText}>{errors[name]}</Text>;
     }
+    return null;
+  };
+
+  
+
 return (
     <View style={styles.container}>
             <TouchableOpacity>
             <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
             </TouchableOpacity>
 
-            <ScrollView style={styles.Login}>
+            <ScrollView style={styles.scroll}>
 
                 <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
 
-             
+                <View>
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
+                {renderError('titulo')}
+                </View>
 
+                <View>
                 <TextInput style={styles.input} placeholder="Diretor"
                 value={diretor} onChangeText={setDiretor}/>
+                {renderError('diretor')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Genero"
+                <View>
+                <TextInput style={styles.inputGenero} placeholder="Genero"
                 value={genero} onChangeText={setGenero}/>
+                {renderError('genero')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="data de lancamento"
+                <View>
+                <TextInput style={styles.inputClassificacao} placeholder="Classificação"
+                value={classificacao} onChangeText={setClassificacao}/>
+                {renderError('classificacao')}
+                </View>
+
+                <View>
+                <TextInput style={styles.inputDate} placeholder="data de lancamento"
                 value={dt_lancamento} onChangeText={setDt_lancamento}/>
+                {renderError('dt_lancamento')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Duracao"
+                <View>
+                <TextInput style={styles.inputDuracao} placeholder="Duracao"
                 value={duracao} onChangeText={setDuracao}/>
+                {renderError('duracao')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Sinopse"
+                <View>
+                <TextInput style={styles.inputSinopse} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
+                {renderError('sinopse')}
+                </View>
 
+                <View>
                 <TextInput style={styles.input} placeholder="Elenco"
                 value={elenco} onChangeText={setElenco} multiline/>
+                {renderError('elenco')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Classificação"
-                value={classificacao} onChangeText={setClassificacao}/>
-
+                <View>
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
+                {renderError('plataformas')}
+                </View>
 
         
                 <TouchableOpacity style={styles.button} onPress={cadastrarFilme}>
@@ -87,7 +174,7 @@ return (
 }
 
 const styles = StyleSheet.create({
-    Login: {
+    scroll: {
         marginTop: 30
     },
     Text1: {
@@ -96,9 +183,11 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom:15
     },
-    Text: {
-
-        marginTop: -11
+    errorText: {
+        color: 'red',
+        marginLeft: 10,
+        marginVertical: 2,
+        fontSize: 10,
     },
     container: {
         flex: 1,
@@ -132,22 +221,6 @@ const styles = StyleSheet.create({
         marginLeft: 118,
         marginTop: 13
     },
-    forgotPassword: {
-        color: '#D94F04',
-        textAlign: 'center',
-        fontSize: 10,
-
-    },
-    Icons: {
-        marginTop: 20
-    },
-    Text2: {
-        color: 'black',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
     Logo: {
         height: 150,
         width: 300,
@@ -163,7 +236,6 @@ const styles = StyleSheet.create({
         borderColor: '#D94F04',
         color: 'black',
         width: '48%',
-       
     },
     inputDuracao:{
         marginBottom: 20,
@@ -204,8 +276,8 @@ const styles = StyleSheet.create({
     borderColor: '#D94F04',
     color: 'black',
     width: 360,
-    height:100,
+    height: 70,
 }
-});
+})
 
 export default CadastroFilme;
