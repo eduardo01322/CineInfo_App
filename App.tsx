@@ -1,13 +1,24 @@
 import React from 'react';
 import CadastroFilme from './src/screens/CadastroFilme';
 import AtualizarFilme from './src/screens/AtualizarFilme';
+import Listagem from './src/screens/Listagem';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-function App(): React.JSX.Element {
-  
+const Stack = createStackNavigator();
+
+function App(): React.ReactElement {
   return (
-   <CadastroFilme/>
-   //<AtualizarFilme/>
-);
+    <NavigationContainer>
+      <Stack.Navigator >
+      <Stack.Screen name='Cadastro' component={CadastroFilme} 
+        options={{ headerShown: false }} />
+       
+       <Stack.Screen name='listagem' component={Listagem}
+         options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 export default App;

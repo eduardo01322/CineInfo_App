@@ -16,47 +16,38 @@ const CadastroFilme: React.FC = () => {
     const [errors, setErrors] = useState<any>({});
     const [message, setMessage] = useState<string>('');
 
+
     const validateForm = () => {
-        const newErrors: any = {};
-    
-        if (!titulo) {
-          newErrors.titulo = "O campo titulo é obrigatório";
-        }
-    
-        if (!diretor) {
-          newErrors.diretor = "O campo diretor é obrigatório";
-        }
-    
-        if (!genero) {
-          newErrors.genero = "O campo genero é obrigatório";
-        }
-    
-        if (!dt_lancamento) {
-          newErrors.dt_lancamento = "O campo dt_lancamento é obrigatório";
-        }
-    
-        if (!sinopse) {
-          newErrors.sinopse = "O campo sinopse é obrigatório";
-        }
-    
-        if (!elenco) {
-          newErrors.elenco = "O campo elenco é obrigatório";
-        }
-    
-        if (!classificacao) {
-          newErrors.classificacao = "O campo classificacao é obrigatório";
-        }
-        if (!plataformas) {
-            newErrors.plataformas = "O campo plataformas é obrigatório";
-          }
-          if (!duracao) {
-            newErrors.duracao = "O campo duracao é obrigatório";
-          }
-    
-        setErrors(newErrors);
-    
-        return !Object.keys(newErrors).length;
-      };
+      const newErrors: any = {};
+  
+      if (!titulo) {
+        newErrors.titulo = "O campo título é obrigatório";
+      }
+      if (!diretor) {
+        newErrors.diretor = "O campo diretor é obrigatório";
+      }
+      if (!genero) {
+        newErrors.genero = "O campo gênero é obrigatório";
+      }
+      if (!dt_lancamento) {
+        newErrors.dt_lancamento = "O campo data de lançamento é obrigatório";
+      }
+      if (!sinopse) {
+        newErrors.sinopse = "O campo sinopse é obrigatório";
+      }
+      if (!classificacao) {
+        newErrors.classificacao = "O campo classificação é obrigatório";
+      }
+      if (!plataformas) {
+        newErrors.plataformas = "O campo plataformas é obrigatório";
+      }
+      if (!duracao) {
+        newErrors.duracao = "O campo duração é obrigatório";
+      }
+      setErrors(newErrors);
+  
+      return !Object.keys(newErrors).length;
+    };
 
 
     const cadastrarFilme = async () => {
@@ -78,7 +69,18 @@ const CadastroFilme: React.FC = () => {
                 'Content-Type': 'multipart/form-data'
             }            
         });
-    } catch (error) {
+    setMessage('Filme cadastrado');
+        setTimeout(() => setMessage(''), 3000);
+        setTitulo('');
+        setDiretor('');
+        setGenero('');
+        setDt_lancamento('');
+        setSinopse('');
+        setElenco('');
+        setClassificacao('');
+        setPlataformas('');
+        setDuracao('');
+      } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
           setErrors(error.response.data.errors);
         } else {
@@ -88,16 +90,19 @@ const CadastroFilme: React.FC = () => {
       }
     }
   };
+
   const renderError = (name: string) => {
     if (errors[name]) {
+      if (name === 'titulo' && errors[name].unique) {
+        return <Text style={styles.errorText}>Titulo already exists</Text>;
+      }
       return <Text style={styles.errorText}>{errors[name]}</Text>;
     }
     return null;
   };
 
-  
 
-return (
+  return (
     <View style={styles.container}>
             <TouchableOpacity>
             <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
