@@ -8,11 +8,11 @@ function FooterAdm(): React.ReactElement {
 
     return (
       <View style={styles.footer}>
-        <TouchableOpacity onPress={ () => navigation.navigate('listagem')}>
+        <TouchableOpacity onPress={ () => navigation.navigate('Listagem')}>
         <Image source={require('../assets/images/home.png')} 
           style={styles.footerIcon}/>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={ () => navigation.navigate('Login')}>
             <Image source={require('../assets/images/user.png')} 
             style={styles.footerIcon}/>
         </TouchableOpacity>
@@ -30,7 +30,7 @@ function FooterAdm(): React.ReactElement {
 
         <TouchableOpacity onPress={()=> navigation.navigate('Atualizar')}
         style={styles.cadastros}>
-            <Text style={styles.cadastrosText}>atualizar filmes</Text>
+            <Text style={styles.cadastrosText}>Atualizar filmes</Text>
         </TouchableOpacity> 
 
         <TouchableOpacity style={styles.cadastros}>
