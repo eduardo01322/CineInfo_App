@@ -16,6 +16,9 @@ function App(): React.ReactElement {
        
        <Stack.Screen name='listagem' component={Listagem}
          options={{ headerShown: false }} />
+
+<Stack.Screen name='Atualizar' component={AtualizarFilme} 
+        options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

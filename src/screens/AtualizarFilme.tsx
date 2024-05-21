@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Footer from "../components/Footer";
+import FooterAdm from "../components/FooterAdm";
 
+
+// não funciona ainda (está para preencher espaço)
 const AtualizarFilme: React.FC = () => {
     const [filme, setFilme] = useState<[]>([]);
-    const [id, setId] = useState<string>('');
     const [titulo, setTitulo] = useState<string>('');
     const [diretor, setDiretor] = useState<string>('');
     const [genero, setGenero] = useState<string>('');
@@ -14,11 +17,47 @@ const AtualizarFilme: React.FC = () => {
     const [classificacao, setClassificacao] = useState<string>('');
     const [plataformas, setPlataformas] = useState<string>('');
     const [duracao, setDuracao] = useState<string>('');
+    const [errors, setErrors] = useState<any>({});
+    const [message, setMessage] = useState<string>('');
+
+
+    const validateForm = () => {
+      const newErrors: any = {};
+  
+      if (!titulo) {
+        newErrors.titulo = "O campo título é obrigatório";
+      }
+      if (!diretor) {
+        newErrors.diretor = "O campo diretor é obrigatório";
+      }
+      if (!genero) {
+        newErrors.genero = "O campo gênero é obrigatório";
+      }
+      if (!dt_lancamento) {
+        newErrors.dt_lancamento = "O campo data de lançamento é obrigatório";
+      }
+      if (!sinopse) {
+        newErrors.sinopse = "O campo sinopse é obrigatório";
+      }
+      if (!classificacao) {
+        newErrors.classificacao = "O campo classificação é obrigatório";
+      }
+      if (!plataformas) {
+        newErrors.plataformas = "O campo plataformas é obrigatório";
+      }
+      if (!duracao) {
+        newErrors.duracao = "O campo duração é obrigatório";
+      }
+      setErrors(newErrors);
+  
+      return !Object.keys(newErrors).length;
+    };
+
 
     const cadastrarFilme = async () => {
+        if (validateForm()) {
         try{
         const formData = new FormData();
-        formData.append('id', id);
         formData.append('titulo', titulo);
         formData.append('diretor', diretor);
         formData.append('genero', genero);
@@ -29,121 +68,237 @@ const AtualizarFilme: React.FC = () => {
         formData.append('plataformas', plataformas);
         formData.append('duracao', duracao);
 
-        const response = await axios.put('http://10.137.11.213:8000/api/filmes/update', formData, {
+        const response = await axios.post('http://10.137.11.213:8000/api/filmes/update', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }            
         });
-    } catch(error) {
-        console.log(error);
-    }
-    }
-
-    useEffect(() => {
-        async function fetchData() {
-          try{
-              const response = await axios.get("http://127.0.0.1:8000/api/find/clientes/"+id);
-              setId(response.data.data.id);
-              setTitulo(response.data.data.titulo);
-              setDiretor(response.data.data.diretor);
-              setGenero(response.data.data.genero);
-              setDt_lancamento(response.data.data.dt_lancamento);
-              setSinopse(response.data.data.sinopse);
-              setElenco(response.data.data.elenco);
-              setClassificacao(response.data.data.classificacao);
-              setPlataformas(response.data.data.plataformas);
-              setDuracao(response.data.data.duracao);
-          } catch(error){
-              console.log("erro ao buscar dados da api");
-          }
+    setMessage('Filme cadastrado');
+        setTimeout(() => setMessage(''), 3000);
+        setTitulo('');
+        setDiretor('');
+        setGenero('');
+        setDt_lancamento('');
+        setSinopse('');
+        setElenco('');
+        setClassificacao('');
+        setPlataformas('');
+        setDuracao('');
+      } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        } else {
+          setMessage('Não cadastrado');
+          setTimeout(() => setMessage(''), 3000);
         }
-        fetchData();
-      }, []);
+      }
+    }
+  };
+
+  const renderError = (name: string) => {
+    if (errors[name]) {
+      if (name === 'titulo' && errors[name].unique) {
+        return <Text style={styles.errorText}>Titulo already exists</Text>;
+      }
+      return <Text style={styles.errorText}>{errors[name]}</Text>;
+    }
+    return null;
+  };
 
 
-return (
+  return (
     <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>CineInfo</Text>
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input} placeholder="id"
-                value={id} onChangeText={setId} keyboardType="numeric"/>
+            <TouchableOpacity>
+            <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
+            </TouchableOpacity>
+
+            <ScrollView style={styles.scroll}>
+
+                <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
                 
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
+                {renderError('titulo')}
+                </View>
 
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="Diretor"
                 value={diretor} onChangeText={setDiretor}/>
+                {renderError('diretor')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Genero"
+                <View style={styles.alinhamentoGDt}>
+                <TextInput style={styles.inputGenero} placeholder="Genero"
                 value={genero} onChangeText={setGenero}/>
+                {renderError('genero')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="dt_lancamento"
+                <View style={styles.alinhamentoCD}>
+                <TextInput style={styles.inputClassificacao} placeholder="Classificação"
+                value={classificacao} onChangeText={setClassificacao}/>
+                {renderError('classificacao')}
+                </View>
+
+                <View style={styles.alinhamentoGDt}>
+                <TextInput style={styles.inputDate} placeholder="data de lancamento"
                 value={dt_lancamento} onChangeText={setDt_lancamento}/>
+                {renderError('dt_lancamento')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Sinopse"
+                <View style={styles.alinhamentoCD}>
+                <TextInput style={styles.inputDuracao} placeholder="Duracao"
+                value={duracao} onChangeText={setDuracao}/>
+                {renderError('duracao')}
+                </View>
+
+                <View style={styles.alinhamento}>
+                <TextInput style={styles.inputSinopse} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
+                {renderError('sinopse')}
+                </View>
 
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="Elenco"
                 value={elenco} onChangeText={setElenco} multiline/>
+                {renderError('elenco')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Classificacao"
-                value={classificacao} onChangeText={setClassificacao}/>
-
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
+                {renderError('plataformas')}
+                </View>
 
-                <TextInput style={styles.input} placeholder="Duracao"
-                value={duracao} onChangeText={setDuracao}/>
         
                 <TouchableOpacity style={styles.button} onPress={cadastrarFilme}>
-                    <Text style={styles.buttonText}>Atualizar produção</Text>
+                    <Text style={styles.buttonText}>Atualizar</Text>
                 </TouchableOpacity>
-            </View>
 
+
+            </ScrollView>
+            <FooterAdm/>
         </View>
 
 );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF'
+  },
+  alinhamento: {
+    alignItems: 'center',
+  },
+  alinhamentoGDt: {
+    right: -16,
+    width: -80,
+  },
+  alinhamentoCD: {
+    right: 0,
+    width: 390,
+  },
+    scroll: {
+        marginTop: 30,
     },
-    header: {
-        backgroundColor: 'black',
-        paddingVertical: 10,
-        alignItems: 'center'
+    Text1: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 15,
+        marginBottom:15
     },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    form: {
-        padding: 10,
-        backgroundColor: '#f0f0f0',
-        marginBottom: 10
+    errorText: {
+        color: 'red',
+        marginLeft: 10,
+        marginVertical: 2,
+        fontSize: 10,
     },
     input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
+        marginBottom: 20,
         paddingHorizontal: 10,
-        borderRadius: 10
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: 360,
     },
     button: {
-        backgroundColor: 'black',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center'
+        backgroundColor: '#D94F04',
+        height: 60,
+        borderRadius: 20,
+        width: 350,
+        fontSize: 50,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom:15,
+        marginTop:9
     },
     buttonText: {
-        color: 'white',
-        fontWeight: 'bold'
-    }
-});
+        fontSize: 25,
+        width: 110,
+        color: '#FFF',
+        marginLeft: 118,
+        marginTop: 13
+    },
+    Logo: {
+        height: 150,
+        width: 300,
+        marginTop: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    inputDate:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '45%',
+    },
+    inputDuracao:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '45%',
+        marginLeft:'52%',
+        marginVertical: -70
+    },
+    inputClassificacao:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '45%',
+        marginLeft:'52%',
+        marginVertical: -70,
+    },
+    inputGenero:{
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#D94F04',
+        color: 'black',
+        width: '45%',
+    },
+    inputSinopse:{
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D94F04',
+    color: 'black',
+    width: 360,
+    height: 70,
+}
+})
+
 
 export default AtualizarFilme;
