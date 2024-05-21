@@ -2,6 +2,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Button } from "react-native";
+import Footer from "../components/Footer";
+import FooterAdm from "../components/FooterAdm";
 
 interface Filme {
   id: string;
@@ -69,6 +71,8 @@ const Listagem: React.FC = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id} 
       />
+
+      <FooterAdm/>
     </View>
   );
 };

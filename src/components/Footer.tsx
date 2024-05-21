@@ -8,16 +8,20 @@ function Footer(): React.ReactElement {
 
     return (
       <View style={styles.footer}>
-      <TouchableOpacity onPress={()=> navigation.navigate('Cadastro')}>
+      <TouchableOpacity onPress={()=> navigation.navigate('listagem')}>
           <Image source={require('../assets/images/home.png')} 
           style={styles.footerIcon}/>
       </TouchableOpacity>
-        <TouchableOpacity onPress={ () => navigation.navigate('listagem')}>
-        <Image source={require('../assets/images/home.png')} 
+        <TouchableOpacity onPress={ () => navigation.navigate('Cadastro')}>
+        <Image source={require('../assets/images/addUser.png')} 
           style={styles.footerIcon}/>
         </TouchableOpacity>
         <TouchableOpacity>
-            <Image source={require('../assets/images/orders.png')} 
+            <Image source={require('../assets/images/user.png')} 
+            style={styles.footerIcon}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+            <Image source={require('../assets/images/config.png')} 
             style={styles.footerIcon}/>
         </TouchableOpacity>
       </View>

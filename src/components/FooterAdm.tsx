@@ -2,21 +2,30 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
-function Footer(): React.ReactElement {
+function FooterAdm(): React.ReactElement {
   
     const navigation = useNavigation(); 
 
     return (
       <View style={styles.footer}>
-      <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
+      <TouchableOpacity onPress={()=> navigation.navigate('Cadastro')}>
           <Image source={require('../assets/images/home.png')} 
           style={styles.footerIcon}/>
       </TouchableOpacity>
         <TouchableOpacity onPress={ () => navigation.navigate('listagem')}>
-            
+        <Image source={require('../assets/images/addUser.png')} 
+          style={styles.footerIcon}/>
         </TouchableOpacity>
         <TouchableOpacity>
-            <Image source={require('../assets/images/orders.png')} 
+            <Image source={require('../assets/images/user.png')} 
+            style={styles.footerIcon}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+            <Image source={require('../assets/images/config.png')} 
+            style={styles.footerIcon}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+            <Image source={require('../assets/images/plus.png')} 
             style={styles.footerIcon}/>
         </TouchableOpacity>
       </View>
@@ -44,4 +53,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Footer; 
+export default FooterAdm; 

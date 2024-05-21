@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Footer from "../components/Footer";
 
 const CadastroFilme: React.FC = () => {
     const [filme, setFilme] = useState<[]>([]);
@@ -111,56 +112,56 @@ const CadastroFilme: React.FC = () => {
             <ScrollView style={styles.scroll}>
 
                 <Text style={styles.Text1}>--------------- Cadastrar Stream ----------------</Text>
-
-                <View>
+                
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="titulo"
                 value={titulo} onChangeText={setTitulo} multiline/>
                 {renderError('titulo')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="Diretor"
                 value={diretor} onChangeText={setDiretor}/>
                 {renderError('diretor')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamentoGDt}>
                 <TextInput style={styles.inputGenero} placeholder="Genero"
                 value={genero} onChangeText={setGenero}/>
                 {renderError('genero')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamentoCD}>
                 <TextInput style={styles.inputClassificacao} placeholder="Classificação"
                 value={classificacao} onChangeText={setClassificacao}/>
                 {renderError('classificacao')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamentoGDt}>
                 <TextInput style={styles.inputDate} placeholder="data de lancamento"
                 value={dt_lancamento} onChangeText={setDt_lancamento}/>
                 {renderError('dt_lancamento')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamentoCD}>
                 <TextInput style={styles.inputDuracao} placeholder="Duracao"
                 value={duracao} onChangeText={setDuracao}/>
                 {renderError('duracao')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.inputSinopse} placeholder="Sinopse"
                 value={sinopse} onChangeText={setSinopse} multiline/>
                 {renderError('sinopse')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="Elenco"
                 value={elenco} onChangeText={setElenco} multiline/>
                 {renderError('elenco')}
                 </View>
 
-                <View>
+                <View style={styles.alinhamento}>
                 <TextInput style={styles.input} placeholder="plataformas"
                 value={plataformas} onChangeText={setPlataformas}/>
                 {renderError('plataformas')}
@@ -173,14 +174,30 @@ const CadastroFilme: React.FC = () => {
 
 
             </ScrollView>
+            <Footer/>
         </View>
 
 );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF'
+  },
+  alinhamento: {
+    alignItems: 'center',
+  },
+  alinhamentoGDt: {
+    right: -16,
+    width: -80,
+  },
+  alinhamentoCD: {
+    right: 0,
+    width: 390,
+  },
     scroll: {
-        marginTop: 30
+        marginTop: 30,
     },
     Text1: {
         marginRight: 'auto',
@@ -193,11 +210,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginVertical: 2,
         fontSize: 10,
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#FFF'
     },
     input: {
         marginBottom: 20,
@@ -240,7 +252,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#D94F04',
         color: 'black',
-        width: '48%',
+        width: '45%',
     },
     inputDuracao:{
         marginBottom: 20,
@@ -249,7 +261,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#D94F04',
         color: 'black',
-        width: '48%',
+        width: '45%',
         marginLeft:'52%',
         marginVertical: -70
     },
@@ -260,9 +272,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#D94F04',
         color: 'black',
-        width: '48%',
+        width: '45%',
         marginLeft:'52%',
-        marginVertical: -70
+        marginVertical: -70,
     },
     inputGenero:{
         marginBottom: 20,
@@ -271,7 +283,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#D94F04',
         color: 'black',
-        width: '48%',
+        width: '45%',
     },
     inputSinopse:{
     marginBottom: 20,
