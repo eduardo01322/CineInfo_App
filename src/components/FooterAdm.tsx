@@ -22,7 +22,7 @@ function FooterAdm(): React.ReactElement {
         </TouchableOpacity>
         
         {elementVisible ? ( 
-        <View style={styles.cadastrosFundo}>
+        <View>
         <TouchableOpacity onPress={()=> navigation.navigate('Cadastro')}
         style={styles.cadastros}>
             <Text style={styles.cadastrosText}>Cadastro filmes</Text>
@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
     cadastros: {
         marginTop: -50,
         left: 70,
-    },
-    cadastrosFundo: {
+        margin: 10,
         backgroundColor: 'white'
     },
     cadastrosText: {

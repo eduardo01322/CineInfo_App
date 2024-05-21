@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Footer from "../components/Footer";
+import FooterAdm from "../components/FooterAdm";
 
 const CadastroFilme: React.FC = () => {
     const [filme, setFilme] = useState<[]>([]);
@@ -174,7 +175,7 @@ const CadastroFilme: React.FC = () => {
 
 
             </ScrollView>
-            <Footer/>
+            <FooterAdm/>
         </View>
 
 );
