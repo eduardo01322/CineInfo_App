@@ -23,12 +23,22 @@ function FooterAdm(): React.ReactElement {
         
         {elementVisible ? ( 
         <View>
-        <TouchableOpacity onPress={()=> navigation.navigate('Cadastro')}
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroFilme')}
         style={styles.cadastros}>
             <Text style={styles.cadastrosText}>Cadastro filmes</Text>
         </TouchableOpacity> 
 
-        <TouchableOpacity onPress={()=> navigation.navigate('Atualizar')}
+        <TouchableOpacity onPress={()=> navigation.navigate('Listagem2')}
+        style={styles.cadastros}>
+            <Text style={styles.cadastrosText}>Listagem2</Text>
+        </TouchableOpacity> 
+
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroFilme')}
+        style={styles.cadastros}>
+            <Text style={styles.cadastrosText}>Cadastro filmes</Text>
+        </TouchableOpacity> 
+
+        <TouchableOpacity onPress={()=> navigation.navigate('AtualizarFilme')}
         style={styles.cadastros}>
             <Text style={styles.cadastrosText}>Atualizar filmes</Text>
         </TouchableOpacity> 
@@ -37,9 +47,11 @@ function FooterAdm(): React.ReactElement {
         <Text style={styles.cadastrosText}>Cadastro animação</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cadastros}> 
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroSerie')}
+        style={styles.cadastros}> 
             <Text style={styles.cadastrosText}>Cadastro serie</Text>
         </TouchableOpacity>
+        
         </View>
         ) : null} 
 

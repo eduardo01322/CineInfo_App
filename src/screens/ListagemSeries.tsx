@@ -5,33 +5,34 @@ import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from "react
 import Footer from "../components/Footer";
 import FooterAdm from "../components/FooterAdm";
 
-interface Filme {
+interface Serie {
   id: string;
   titulo: string;
   diretor: string;
+  studio: string;
   genero: string;
   dt_lancamento: string;
   sinopse: string;
   elenco: string;
   classificacao: string;
   plataformas: string;
-  duracao: string;
+  episodios: string;
 }
 
-const Listagem: React.FC = () => {
-  const [filmes, setFilmes] = useState<Filme[]>([]);
+const ListagemSerie: React.FC = () => {
+  const [serie, setSerie] = useState<Serie[]>([]);
   const [elementVisible, setElementVisible] = useState<string | null>(null);
 
   useEffect(() => {
-    ListagemFilmes();
+    ListagemSerie();
   }, []);
 
-  const ListagemFilmes = async () => {
+  const ListagemSerie = async () => {
     try {
-      const response = await axios.get('http://10.137.11.213:8000/api/filmes/listagem');
+      const response = await axios.get('http://10.137.11.213:8000/api/series/listagem');
       if (response.status === 200) {
-        setFilmes(response.data.data);
-        console.log(filmes);
+        setSerie(response.data.data);
+        console.log(serie);
       }
     } catch (error) {
       console.log(error);
@@ -39,13 +40,13 @@ const Listagem: React.FC = () => {
   }
 
   const Delete = async (id: number) => {
-    axios.delete('http://10.137.11.213:8000/api/filmes/delete/' + id).then(function (response) {}
+    axios.delete('http://10.137.11.213:8000/api/series/delete/' + id).then(function (response) {}
     ).catch(function (error) {
     console.log(error)
   })
 }
 
-  const renderItem = ({ item }: { item: Filme }) => (
+  const renderItem = ({ item }: { item: Serie }) => (
     <View style={styles.item} key={item.id}>
       <Text style={styles.nameText}>{item.titulo}</Text>
       <Text style={styles.text}>{item.genero}</Text>
@@ -57,7 +58,7 @@ const Listagem: React.FC = () => {
       <Text style={styles.text}>{item.sinopse}</Text>
       <Text style={styles.text}>{item.elenco}</Text>
       <Text style={styles.text}>{item.plataformas}</Text>
-      <Text style={styles.numbertext}>{item.duracao}</Text>
+      <Text style={styles.numbertext}>eps{item.episodios}</Text>
       <TouchableOpacity onPress={() => Delete(item.id)}>
       <Image source={require('../assets/images/trash.png')}style={styles.trash}/>
       </TouchableOpacity>
@@ -78,12 +79,12 @@ const Listagem: React.FC = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={filmes}
+        data={serie}
         renderItem={renderItem}
         keyExtractor={(item) => item.id} 
+        horizontal
       />
 
-      <FooterAdm/>
     </View>
   );
 };
@@ -133,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Listagem;
+export default ListagemSerie;

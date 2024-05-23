@@ -18,7 +18,7 @@ interface Filme {
   duracao: string;
 }
 
-const Listagem: React.FC = () => {
+const ListagemFilmes: React.FC = () => {
   const [filmes, setFilmes] = useState<Filme[]>([]);
   const [elementVisible, setElementVisible] = useState<string | null>(null);
 
@@ -81,9 +81,9 @@ const Listagem: React.FC = () => {
         data={filmes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id} 
+        horizontal
       />
 
-      <FooterAdm/>
     </View>
   );
 };
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Listagem;
+export default ListagemFilmes;
