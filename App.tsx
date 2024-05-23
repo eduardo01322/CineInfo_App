@@ -1,12 +1,10 @@
 import React from 'react';
 import CadastroFilme from './src/screens/CadastroFilme';
 import AtualizarFilme from './src/screens/AtualizarFilme';
-import Listagem from './src/screens/Listagem';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './src/screens/login';
 import CadastroSerie from './src/screens/CadastroSerie';
-import Listagem2 from './src/screens/Listagem';
 import ListagemF from './src/screens/ListagemFilmes';
 
 const Stack = createStackNavigator();
