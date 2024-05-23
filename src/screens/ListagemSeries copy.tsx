@@ -81,6 +81,8 @@ const Delete2 = async (id: number) => {
   console.log(error)
 })
 }
+
+// serie
   const renderItem = ({ item }: { item: Serie }) => (
     <View style={styles.item} key={item.id}>
       <TouchableOpacity onPress={() =>
@@ -105,6 +107,7 @@ const Delete2 = async (id: number) => {
     </View>
   );
 
+  // filme
   const renderItem2 = ({ item }: { item: Filme }) => (
     <View style={styles.item} key={item.id}>
       <Text style={styles.nameText}>{item.titulo}</Text>
@@ -150,7 +153,15 @@ const Delete2 = async (id: number) => {
       />
 
     </View>
-
+    <View>
+      
+    </View>
+    <FlatList
+        data={serie}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id} 
+        horizontal
+      />
     </View>
   );
 };
