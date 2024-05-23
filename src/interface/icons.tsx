@@ -32,13 +32,15 @@ apple:{
     height:60,
     width:60,
     marginHorizontal:10,
-    marginTop:12
+    marginTop:12,
+    left: 20
 },
 goog:{
     height:60,
     width:60,
     marginHorizontal:10,
-    marginTop:10
+    marginTop:10,
+    right: 20
 }
 });
 

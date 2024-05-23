@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Button } from "react-native";
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import Footer from "../components/Footer";
 import FooterAdm from "../components/FooterAdm";
 
@@ -20,7 +20,7 @@ interface Filme {
 
 const Listagem: React.FC = () => {
   const [filmes, setFilmes] = useState<Filme[]>([]);
-  const [elementVisible, setElementVisible] = useState(false);
+  const [elementVisible, setElementVisible] = useState<string | null>(null);
 
   useEffect(() => {
     ListagemFilmes();
@@ -44,7 +44,7 @@ const Listagem: React.FC = () => {
       <Text style={styles.text}>{item.genero}</Text>
       <Text style={styles.numbertext}>{item.dt_lancamento}</Text>
       <Text style={styles.text}>{item.classificacao}</Text>
-      {elementVisible ? ( 
+      {elementVisible === item.id && ( 
         <View >
       <Text style={styles.text}>{item.diretor} </Text>
       <Text style={styles.text}>{item.sinopse}</Text>
@@ -52,8 +52,9 @@ const Listagem: React.FC = () => {
       <Text style={styles.text}>{item.plataformas}</Text>
       <Text style={styles.numbertext}>{item.duracao}</Text>
       </View >
-      ) : null} 
-            <TouchableOpacity onPress={() => setElementVisible(!elementVisible)}> 
+      )} 
+            <TouchableOpacity onPress={() =>
+          setElementVisible(elementVisible === item.id ? null : item.id)} > 
           <Image source={require('../assets/images/arrow.png')} style={styles.button} />
         </TouchableOpacity>
     </View>

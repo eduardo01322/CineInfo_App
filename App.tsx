@@ -12,11 +12,12 @@ function App(): React.ReactElement {
   return (
     <NavigationContainer>
       <Stack.Navigator >
+      <Stack.Screen name='Listagem' component={Listagem}
+         options={{ headerShown: false }} />
+
+         
       <Stack.Screen name='Cadastro' component={CadastroFilme} 
         options={{ headerShown: false }} />
-       
-       <Stack.Screen name='Listagem' component={Listagem}
-         options={{ headerShown: false }} />
 
       <Stack.Screen name='Login' component={LoginScreen} 
         options={{ headerShown: false }} />

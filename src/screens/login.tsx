@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Icons from "../interface/icons";
+import FooterAdm from "../components/FooterAdm";
 
 
 
@@ -32,12 +33,12 @@ function LoginScreen(): JSX.Element {
             <Icons/>
             </View>
             <Text style={styles.Text1}>--------------- Entrar com Email ----------------</Text>
-            <Text >Email</Text>
+            <Text style={styles.Text3}>Email</Text>
             <TextInput style={styles.input} placeholder="Digite aqui o seu email" placeholderTextColor="#D94F04"
                 onChangeText={(textEmail) => setEmail(textEmail)}
             />
 
-            <Text>Senha</Text>
+            <Text style={styles.Text3}>Senha</Text>
             <TextInput style={styles.input} placeholder="Digite aqui sua senha" placeholderTextColor="#D94F04"
                 onChangeText={(textPassword) => SetPassword(textPassword)}
             />
@@ -52,6 +53,7 @@ function LoginScreen(): JSX.Element {
 
 
             </ScrollView>
+            <FooterAdm/>
         </View>
     );
 }
@@ -67,13 +69,15 @@ const styles = StyleSheet.create({
         fontSize:15   
     },
     Text: {
-     
-        marginTop: -11
+        marginTop: -11,
+        left: 15
     },
     container: {
         flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#FFF'
+        backgroundColor: 'white'
+    },
+    Text3: {
+        left: 15
     },
     input: {
         marginBottom: 20,
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
         borderColor: '#D94F04',
         color: 'black',
         width:360,
+        left: 15
     },
     button: {
         backgroundColor: '#D94F04',
