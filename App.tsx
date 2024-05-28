@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './src/screens/login';
 import CadastroSerie from './src/screens/CadastroSerie';
 import ListagemF from './src/screens/ListagemFilmes';
+import EditarFilmes from './src/screens/AtualizarFilme';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,9 @@ function App(): React.ReactElement {
 
       <Stack.Screen name='CadastroSerie' component={CadastroSerie} 
         options={{ headerShown: false }} />
+
+      <Stack.Screen name='EditarFilmes' component={EditarFilmes}
+         options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>

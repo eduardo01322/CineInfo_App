@@ -67,7 +67,7 @@ const EditarFilmes: React.FC = () => {
           plataformas: plataformas,
           duracao:duracao
       };
-      axios.put("http://10.137.11.214/api/filmes/update", dadosDoFilme, {
+      axios.put("http://10.137.11.213:8000/api/filmes/update", dadosDoFilme, {
           headers: {
               "Accept": "application/json",
               "Content-Type": "application/json"
