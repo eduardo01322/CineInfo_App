@@ -37,7 +37,7 @@ const ListagemF: React.FC = () => {
 const ListagemFilmes = async () => {
   try {
     if(pesquisa != ""){
-    const response = await axios.get('http://10.137.11.213/api/filmes/pesquisar/'+pesquisa);
+    const response = await axios.get('http://10.137.11.213:8000/api/filmes/pesquisar/'+pesquisa);
     setFilmes(response.data.data);
     } else {
       const response = await axios.get('http://10.137.11.213/api/filmes/listagem');
