@@ -25,6 +25,7 @@ const ListagemF: React.FC = () => {
   const [pesquisa, setPesquisa] = useState<string>("");
   const [filmes, setFilmes] = useState<Filme[]>([]);
   const [elementVisible, setElementVisible] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     ListagemFilmes();
@@ -35,10 +36,10 @@ const ListagemF: React.FC = () => {
 const ListagemFilmes = async () => {
   try {
     if(pesquisa != ""){
-    const response = await axios.get('http://10.137.11.213:8000/api/filmes/pesquisar/'+pesquisa);
+    const response = await axios.get('http://10.137.11.213/api/filmes/pesquisar/'+pesquisa);
     setFilmes(response.data.data);
     } else {
-      const response = await axios.get('http://10.137.11.213:8000/api/filmes/listagem');
+      const response = await axios.get('http://10.137.11.213/api/filmes/listagem');
     setFilmes(response.data.data);
     }
   } catch (error) {
@@ -47,7 +48,7 @@ const ListagemFilmes = async () => {
 }
 
 const Delete = async (id: number) => {
-  axios.delete('http://10.137.11.213:8000/api/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
+  axios.delete('http://10.137.11.213/api/filmes/delete/' + id).then(function (response) {ListagemFilmes();}
   ).catch(function (error) {
   console.log(error)
   ListagemFilmes();
@@ -91,6 +92,9 @@ const navigation = useNavigation();
         <TouchableOpacity>
           <Image source={require('../assets/images/logo.png')} style={styles.Logo} />
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => ListagemFilmes()} style={styles.button}>
+          <Image source={require('../assets/images/refresh.png')} style={styles.refresh} />
+        </TouchableOpacity>
       </View>
      
      <View>
@@ -102,6 +106,11 @@ const navigation = useNavigation();
         data={filmes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setRefreshing(true);
+          ListagemFilmes().then(() => setRefreshing(false));
+        }}
       />
 
     <FooterAdm/>
@@ -116,7 +125,9 @@ const styles = StyleSheet.create({
     },
     editarImage: {
       height: 50,
-      width: 120
+      width: 50,
+      right: -20,
+      top: -35
   },
   pesquisa:{
     borderWidth:1,
@@ -124,7 +135,8 @@ const styles = StyleSheet.create({
     height:50,
     width:380,
     marginLeft:'auto',
-    marginRight:'auto'  
+    marginRight:'auto',
+    marginTop: -40 
   },
   item: {
     fontSize: 15,
@@ -139,8 +151,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   trash: {
-    height: 50,
-    width: 50,
+    height: 25,
+    width: 25,
   },
   button: {
     height: 50,
@@ -152,10 +164,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
 },
-    numbertext: {
-    fontSize: 20,
+  numbertext: {
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
+},
+  refresh: {
+    height: 70,
+    width: 70,
+    marginTop: -180,
+    left: 150
 },
   Logo: {
     height: 150,
