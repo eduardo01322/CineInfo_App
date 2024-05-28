@@ -37,7 +37,7 @@ const ListagemF: React.FC = () => {
 const ListagemFilmes = async () => {
   try {
     if(pesquisa != ""){
-    const response = await axios.get('http://10.137.11.213:8000/api/filmes/pesquisar/'+pesquisa);
+    const response = await axios.get('http://10.137.11.213/api/filmes/pesquisar/'+pesquisa);
     setFilmes(response.data.data);
     } else {
       const response = await axios.get('http://10.137.11.213/api/filmes/listagem');
@@ -69,10 +69,11 @@ const renderItem = ({ item }: { item: Filme }) => (
     <Text style={styles.generoText}>{item.genero}</Text>
     <Text style={styles.classificacaoText}> {item.classificacao}</Text>
     <Text style={styles.dataText}>Lançamento {item.dt_lancamento}</Text>
-    <Text style={styles.text}>Diretor: {item.diretor}</Text>
-    <Text style={styles.text}>sinopse: {item.sinopse}</Text>
-    <Text style={styles.text}>elenco: {item.elenco}</Text>
-    <Text style={styles.text}>{item.plataformas}</Text>
+    <Text style={styles.text}>Diretor: </Text><Text style={styles.camposText}>{item.diretor}</Text>
+    <Text style={styles.text}>sinopse: </Text><Text style={styles.camposText}> {item.sinopse}</Text>
+    <Text style={styles.text}>elenco: </Text><Text style={styles.camposText}> {item.elenco}</Text>
+    <Text style={styles.text}>plataformas: </Text>
+    <Text style={styles.plataformaText}>{item.plataformas}</Text>
     <Text style={styles.duracaoText}>Duração: {item.duracao}</Text>
     <TouchableOpacity onPress={() => Delete(item.id)}>
     <Image source={require('../assets/images/trash.png')}style={styles.trash}/>
@@ -101,7 +102,7 @@ const navigation = useNavigation();
         </TouchableOpacity>
       </View>
      
-     <View>
+      <View>
       <TextInput style={styles.pesquisa} placeholder="Pesquisar" onChangeText={setPesquisa} />
         <TouchableOpacity onPress={ListagemFilmes}><Text>Pesquisar</Text></TouchableOpacity>
      </View>
@@ -111,7 +112,6 @@ const navigation = useNavigation();
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         horizontal
-       
         refreshing={refreshing}
         onRefresh={() => {
           setRefreshing(true);
@@ -141,8 +141,7 @@ const styles = StyleSheet.create({
     height:50,
     width:380,
     marginLeft:'auto',
-    marginRight:'auto',
-    marginTop: -40 
+    marginRight:'auto'  
   },
 
   item: {
@@ -151,9 +150,22 @@ const styles = StyleSheet.create({
     marginLeft:20
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
+  },
+  camposText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: 'black',
+    left: 80,
+    marginTop: -23.5
+  },
+  plataformaText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: 'black',
+
   },
   AvadaKedavra: {
     borderRadius: 20,
