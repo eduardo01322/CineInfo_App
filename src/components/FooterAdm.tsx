@@ -28,7 +28,7 @@ function FooterAdm(): React.ReactElement {
             <Text style={styles.cadastrosText}>Cadastro filmes</Text>
         </TouchableOpacity> 
 
-        <TouchableOpacity onPress={()=> navigation.navigate('AtualizarFilme')}
+        <TouchableOpacity onPress={()=> navigation.navigate('CadastroAnimacao')}
         style={styles.cadastros}>
         <Text style={styles.cadastrosText}>Cadastro animação</Text>
         </TouchableOpacity>

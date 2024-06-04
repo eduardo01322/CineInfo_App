@@ -7,6 +7,7 @@ import LoginScreen from './src/screens/login';
 import CadastroSerie from './src/screens/CadastroSerie';
 import ListagemF from './src/screens/ListagemFilmes';
 import EditarFilmes from './src/screens/AtualizarFilme';
+import CadastroAnimacao from './src/screens/CadastroAnimacao';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,9 @@ function App(): React.ReactElement {
         options={{ headerShown: false }} />
 
       <Stack.Screen name='CadastroSerie' component={CadastroSerie} 
+        options={{ headerShown: false }} />
+
+      <Stack.Screen name='CadastroAnimacao' component={CadastroAnimacao} 
         options={{ headerShown: false }} />
 
       <Stack.Screen name='EditarFilmes' component={EditarFilmes}
