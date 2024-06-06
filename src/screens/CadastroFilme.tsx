@@ -43,6 +43,9 @@ const CadastroFilme: React.FC = () => {
       if (!plataformas) {
         newErrors.plataformas = "O campo plataformas é obrigatório";
       }
+      if (!elenco) {
+        newErrors.elenco = "O campo elenco é obrigatório";
+      }
       if (!duracao) {
         newErrors.duracao = "O campo duração é obrigatório";
       }
@@ -71,6 +74,11 @@ const CadastroFilme: React.FC = () => {
                 'Content-Type': 'multipart/form-data'
             }            
         });
+
+        if (response.data.errors) {
+          setErrors(response.data.errors);
+          setMessage('');
+      } else {
     setMessage('Filme cadastrado');
         setTimeout(() => setMessage(''), 3000);
         setTitulo('');
@@ -82,6 +90,7 @@ const CadastroFilme: React.FC = () => {
         setClassificacao('');
         setPlataformas('');
         setDuracao('');
+      }
       } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
           setErrors(error.response.data.errors);
