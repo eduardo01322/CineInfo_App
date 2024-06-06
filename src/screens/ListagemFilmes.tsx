@@ -104,7 +104,9 @@ const navigation = useNavigation();
      
       <View>
       <TextInput style={styles.pesquisa} placeholder="Pesquisar" onChangeText={setPesquisa} />
-        <TouchableOpacity onPress={ListagemFilmes}><Text>Pesquisar</Text></TouchableOpacity>
+        <TouchableOpacity onPress={ListagemFilmes}>
+          <Image source={require('../assets/images/search.png')} style={styles.search}/>
+        </TouchableOpacity>
      </View>
 
       <FlatList
@@ -134,6 +136,12 @@ const styles = StyleSheet.create({
       width: 60,
       marginTop: -43,
       left: 30
+  },
+  search: {
+    height:30,
+    width: 40,
+    marginTop: -40,
+    left: 340
   },
   pesquisa:{
     borderWidth:1,
